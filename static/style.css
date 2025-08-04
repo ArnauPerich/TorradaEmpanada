@@ -1,0 +1,164 @@
+/* ==== FULLSCREEN BACKGROUND ==== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, #1e293b, #0f172a);
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* ==== CONTAINER ==== */
+.container {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 30px;
+  width: 320px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+/* ==== WORD OPTIONS ==== */
+.word-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  gap: 16px;
+}
+
+/* ==== WORD BOX ==== */
+.word-box {
+  flex: 1;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: clamp(14px, 2vw, 18px);
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  padding: 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selected {
+  background-color: #3b82f6;
+  color: white;
+  box-shadow: 0 0 10px #3b82f6;
+}
+
+.unselected {
+  background-color: rgba(255,255,255,0.1);
+  color: #cbd5e1;
+  opacity: 0.7;
+}
+
+/* ==== INPUT FORM ==== */
+.input-form {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.input-form input {
+  flex: 1;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: rgba(255,255,255,0.1);
+  color: white;
+  padding: 0 14px;
+  font-size: 16px;
+  outline: none;
+}
+
+.input-form button {
+  width: 50px;
+  height: 50px;
+  background-color: #10b981;
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.input-form button:hover {
+  background-color: #059669;
+}
+
+.input-form input {
+  text-transform: uppercase;
+  /* tus otras reglas */
+}
+
+.input-form input::placeholder {
+  text-transform: none;
+  color: #94a3b8; /* opcional: color placeholder moderno */
+}
+
+/* ==== MESSAGE ==== */
+.message {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #facc15;
+}
+
+/* ==== PROGRESS BAR ==== */
+
+.progress-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.progress-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #38bdf8;
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #3b82f6, #06b6d4);
+  transition: width 0.3s ease;
+}
+
+.win-label {
+  color: #ffffff;
+}
+
+/* ==== HEADER IMAGE ==== */
+
+.header-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: -100px;
+  margin-bottom: -40px; 
+}
+
+.header-image {
+  width: 600px; 
+  height: auto;
+  object-fit: contain;
+}
+
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Torrada Empanada</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/logo_photo.png') }}" type="image/png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <div class="header-wrapper">
+    <img src="{{ url_for('static', filename='img/logo_text.png') }}" alt="Header" class="header-image">
+  </div>
+
+  <div class="container">
+
+    <div class="progress-container">
+      <div class="progress-label {% if message and 'win' in message|lower %}win-label{% endif %}">
+        {% if message and "win" in message|lower %}
+          L'HAS ENCERTAT!
+        {% else %}
+          {{ similarity_percent }}%
+        {% endif %}
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: {{ similarity_percent }}%;"></div>
+      </div>
+    </div>
+
+    <div class="word-options">
+        <div class="word-box {{ 'selected' if system_word == word1 else 'unselected' }}">
+            {{ word1 }}
+        </div>
+        <div class="word-box {{ 'selected' if system_word == word2 else 'unselected' }}">
+            {{ word2 }}
+        </div>
+    </div>
+
+
+    <form method="post" class="input-form">
+      <input type="text" name="guess" placeholder="Escriu una paraula..." autocomplete="off" required autofocus />
+      <button type="submit">▶</button>
+    </form>
+
+  </div>
+</body>
+</html>
