@@ -2,7 +2,8 @@ import os
 import random
 import yaml
 import numpy as np
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, send_from_directory
+
 from openai import OpenAI
 from utils.functions import generate_random_word, calculate_cosine_similarity_value, text_processing
 from datetime import datetime
@@ -22,6 +23,10 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # Iniciar Flask
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+
+@app.route('/sw.js')
+def monetag_verification():
+    return send_from_directory('static', 'sw.js')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
