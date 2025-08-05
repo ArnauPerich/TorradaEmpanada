@@ -82,6 +82,22 @@ def calculate_cosine_similarity_value(
         word1: str,
         word2: str
 ) -> Tuple[float, np.ndarray, np.ndarray]:
+    embedding1 = client.encode(
+        word1
+    )
+
+    embedding2 = client.encode(
+    word2
+    )
+
+    cosine_similarity_value = cosine_similarity(embedding1, embedding2)
+    return cosine_similarity_value, embedding1, embedding2
+
+def calculate_cosine_similarity_value_deprecated(
+        client,
+        word1: str,
+        word2: str
+) -> Tuple[float, np.ndarray, np.ndarray]:
     response = client.embeddings.create(
         input=word1,
         model="text-embedding-3-small"
