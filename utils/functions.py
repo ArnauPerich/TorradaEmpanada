@@ -75,7 +75,7 @@ def cosine_similarity(
 ) -> float:
     a = a.flatten()
     b = b.flatten()
-    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+    return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 def calculate_cosine_similarity_value(
         client,
