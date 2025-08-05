@@ -5,17 +5,18 @@ import numpy as np
 from flask import Flask, render_template, request, session
 from openai import OpenAI
 from utils.functions import generate_random_word, calculate_cosine_similarity_value, text_processing
+from datetime import datetime
 
 # Cargar configuración
-
+"""
 def load_config(path: str = "config.yaml"):
     with open(path, "r") as f:
         return yaml.safe_load(f)
 
 config = load_config()
 OPENAI_API_KEY = config["openai"]["api_key"]
-
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+"""
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Iniciar Flask
@@ -25,7 +26,19 @@ app.secret_key = os.urandom(24)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        session.clear()  # Reinicia el juego al recargar
+        today = datetime.now().strftime('%Y%m%d')
+
+        if session.get('winner') and session.get('winner_date') == today:
+            return render_template(
+                "index.html",
+                word1=session["word1"],
+                word2=session["word2"],
+                system_word=session['winner_word'],
+                similarity_percent=100,
+                message=f"You win! The word was: {session['winner_word']}"
+            )
+        else:
+            session.clear()
 
     if 'initial_random_word' not in session:
         # Setup game
@@ -80,7 +93,10 @@ def index():
 
     if winner:
         message = f"You win! The word was: {target}"
-        session.clear()
+        session['winner'] = True
+        session['winner_word'] = target
+        session['winner_date'] = datetime.now().strftime('%Y%m%d')
+
         return render_template("index.html", word1=word1, word2=word2, system_word=guess, similarity_percent=100, message=message)
 
     sim, _, _ = calculate_cosine_similarity_value(client, target, guess)

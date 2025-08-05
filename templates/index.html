@@ -38,10 +38,13 @@
     </div>
 
 
-    <form method="post" class="input-form">
-      <input type="text" name="guess" placeholder="Escriu una paraula..." autocomplete="off" required autofocus />
-      <button type="submit">▶</button>
-    </form>
+    {% if not session.get('winner') %}
+      <form method="post" class="input-form">
+        <input type="text" name="guess" placeholder="Escriu una paraula..." autocomplete="off" required autofocus />
+        <button type="submit">▶</button>
+      </form>
+    {% endif %}
+
 
   </div>
 </body>
