@@ -7,15 +7,15 @@ from openai import OpenAI
 from utils.functions import generate_random_word, calculate_cosine_similarity_value, text_processing
 
 # Cargar configuración
-"""
+
 def load_config(path: str = "config.yaml"):
     with open(path, "r") as f:
         return yaml.safe_load(f)
 
 config = load_config()
 OPENAI_API_KEY = config["openai"]["api_key"]
-"""
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Iniciar Flask

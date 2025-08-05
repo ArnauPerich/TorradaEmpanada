@@ -4,12 +4,13 @@ import json
 from typing import Tuple
 import requests
 import unicodedata
+from datetime import datetime
 
 def text_processing(
         text: str
 ):
     text_processed = text.upper()
-    #text_processed = unicodedata.normalize('NFD', text_processed).encode('ascii', 'ignore').decode('utf-8')
+    text_processed = unicodedata.normalize('NFD', text_processed).encode('ascii', 'ignore').decode('utf-8')
     return text_processed
 
 def generate_random_word_deprecated(
@@ -48,6 +49,23 @@ def generate_random_word_deprecated2():
     return initial_random_word
 
 def generate_random_word():
+
+    url = "https://raw.githubusercontent.com/Softcatala/catalan-dict-tools/refs/heads/master/frequencies/frequencies-dict-forms.txt"
+    response = requests.get(url)
+    common_words = response.text.splitlines()
+    common_words = np.char.split(common_words, ',')
+    common_words = np.array([w[0].strip() for w in common_words])
+
+    # Filtramos las 5000 primeras más comunes, y evitamos palabras muy cortas
+    filtered_words = [w for w in common_words[:5000] if len(w) > 3 and 'l·l' not in w.lower()]
+
+    today_seed = int(datetime.now().strftime('%Y%m%d'))
+    random.seed(today_seed)
+
+    initial_random_word = random.choice(filtered_words)
+    initial_random_word = text_processing(initial_random_word)
+    print(initial_random_word)
+    return initial_random_word
 
     return "SEMAFOR"
 
