@@ -4,9 +4,6 @@ import yaml
 import numpy as np
 from flask import Flask, render_template, request, session, send_from_directory
 
-from openai import OpenAI
-from sentence_transformers import SentenceTransformer
-
 from utils.functions import generate_random_word, calculate_cosine_similarity_value, text_processing
 from datetime import datetime
 
