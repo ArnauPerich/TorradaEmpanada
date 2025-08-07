@@ -11,18 +11,18 @@ from utils.functions import generate_random_word, calculate_cosine_similarity_va
 from datetime import datetime
 
 # Cargar configuración
-
+"""
 def load_config(path: str = "config.yaml"):
     with open(path, "r") as f:
         return yaml.safe_load(f)
 
 config = load_config()
-OPENAI_API_KEY = config["openai"]["api_key"]
 
-#OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-#client = OpenAI(api_key=OPENAI_API_KEY)
-
-client = SentenceTransformer('sentence-transformers/distiluse-base-multilingual-cased-v1')
+HUGGING_FACE_API_URL = config["hugging_face"]["api_url"]
+HUGGING_FACE_TOKEN = config["hugging_face"]["token"]
+"""
+HUGGING_FACE_API_URL = os.getenv("HUGGING_FACE_API_URL")
+HUGGING_FACE_TOKEN = os.getenv("HUGGING_FACE_TOKEN")
 
 # Iniciar Flask
 app = Flask(__name__)
@@ -54,8 +54,8 @@ def index():
         initial_random_word = generate_random_word()
         word1 = "TORRADA"
         word2 = "EMPANADA"
-        sim1, _, emb1 = calculate_cosine_similarity_value(client, initial_random_word, word1)
-        sim2, _, emb2 = calculate_cosine_similarity_value(client, initial_random_word, word2)
+        sim1 = calculate_cosine_similarity_value(HUGGING_FACE_API_URL, HUGGING_FACE_TOKEN, initial_random_word, word1)
+        sim2 = calculate_cosine_similarity_value(HUGGING_FACE_API_URL, HUGGING_FACE_TOKEN, initial_random_word, word2)
 
         if sim1 > sim2:
             system_word, system_sim = word1, sim1
@@ -108,7 +108,7 @@ def index():
 
         return render_template("index.html", word1=word1, word2=word2, system_word=guess, similarity_percent=100, message=message)
 
-    sim, _, _ = calculate_cosine_similarity_value(client, target, guess)
+    sim = calculate_cosine_similarity_value(HUGGING_FACE_API_URL, HUGGING_FACE_TOKEN, target, guess)
 
     if sim > session['system_similarity']:
         session['system_word'] = guess

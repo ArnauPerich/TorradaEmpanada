@@ -67,8 +67,6 @@ def generate_random_word():
     print(initial_random_word)
     return initial_random_word
 
-    return "SEMAFOR"
-
 def cosine_similarity(
         a: np.ndarray, 
         b: np.ndarray
@@ -78,6 +76,30 @@ def cosine_similarity(
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 def calculate_cosine_similarity_value(
+        api_url,
+        token,
+        word1: str,
+        word2: str
+) -> float:
+    
+    headers = {"Authorization": f"Bearer {token}"}
+
+    data = {
+        "inputs": {
+            "source_sentence": word1.lower(),
+            "sentences": [word2.lower()]
+        }
+    }
+
+    response = requests.post(api_url, headers=headers, json=data)
+    print("Status code:", response.status_code)
+    print("Response text:", response.text)
+    value = response.json()[0]
+
+    return value
+
+
+def calculate_cosine_similarity_value_deprecated1(
         client,
         word1: str,
         word2: str
@@ -93,7 +115,7 @@ def calculate_cosine_similarity_value(
     cosine_similarity_value = cosine_similarity(embedding1, embedding2)
     return cosine_similarity_value, embedding1, embedding2
 
-def calculate_cosine_similarity_value_deprecated(
+def calculate_cosine_similarity_value_deprecated2(
         client,
         word1: str,
         word2: str
