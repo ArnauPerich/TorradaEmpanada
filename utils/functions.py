@@ -92,8 +92,6 @@ def calculate_cosine_similarity_value(
     }
 
     response = requests.post(api_url, headers=headers, json=data)
-    print("Status code:", response.status_code)
-    print("Response text:", response.text)
     value = response.json()[0]
 
     return value

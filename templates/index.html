@@ -31,13 +31,12 @@
 
     <div class="word-options">
         <div class="word-box {{ 'selected' if system_word == word1 else 'unselected' }}">
-            {{ word1 }}
+          <span>{{ word1 }}</span>
         </div>
         <div class="word-box {{ 'selected' if system_word == word2 else 'unselected' }}">
-            {{ word2 }}
+          <span>{{ word2 }}</span>
         </div>
     </div>
-
 
     {% if not session.get('winner') %}
       <form method="post" class="input-form">
@@ -48,6 +47,46 @@
 
 
   </div>
+
+  {% if session.get('winner') %}
+    <div class="kpi-box">
+      <div class="kpi-number">{{ winners_today }}</div>
+      <div class="kpi-label">JUGADORS HAN ENCERTAT LA PARAULA AVUI</div>
+    </div>
+
+    {% if histogram_data %}
+      <div class="histogram">
+        <div class="bars">
+          {% for bin_max, count in histogram_data %}
+            <div class="bar" title="Fins a {{ bin_max }} intents">
+              <div class="bar-fill" style="height: {{ count / max_count * 100}}px;"></div>
+              <div class="bar-label">
+                {% if bin_max == 100 %}100+{% else %}{{ bin_max }}{% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+
+
+
+  <script>
+    function resizeTextToFit(box) {
+      const span = box.querySelector('span');
+      let fontSize = 18;
+
+      span.style.fontSize = fontSize + 'px';
+
+      while (span.scrollWidth > box.offsetWidth && fontSize > 10) {
+        fontSize--;
+        span.style.fontSize = fontSize + 'px';
+      }
+    }
+
+    document.querySelectorAll('.word-box').forEach(resizeTextToFit);
+  </script>
 
   <script>
     (s => {
