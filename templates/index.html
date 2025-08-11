@@ -39,7 +39,7 @@
     </div>
 
     {% if not session.get('winner') %}
-      <form id="guess-form" method="post" class="input-form">
+      <form method="post" class="input-form">
         <input type="text" name="guess" placeholder="Escriu una paraula..." autocomplete="off" required autofocus />
         <button type="submit">▶</button>
       </form>
@@ -86,24 +86,6 @@
     }
 
     document.querySelectorAll('.word-box').forEach(resizeTextToFit);
-  </script>
-
-  <script>
-    const form = document.getElementById('guess-form');
-    const input = form.querySelector('input[name="guess"]');
-
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault(); // Evita recarga
-      const formData = new FormData(form);
-
-      await fetch(form.action, {
-        method: form.method,
-        body: formData
-      });
-
-      input.value = '';   
-      input.focus();      
-    });
   </script>
 
   <script src="https://shoukigaigoors.net/act/files/tag.min.js?z=9696046" data-cfasync="false" async></script>
